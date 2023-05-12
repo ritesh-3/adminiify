@@ -1,8 +1,8 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { ProSidebar, Menu, MenuItem } from 'react-pro-sidebar';
 import "react-pro-sidebar/dist/css/styles.css";
 import { Box, IconButton, Typography } from '@mui/material';
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import { tokens } from "../../theme";
 import HomeOutlinedIcon from "@mui/icons-material/HomeOutlined";
 import PeopleOutlinedIcon from "@mui/icons-material/PeopleOutlined";
@@ -17,10 +17,20 @@ import TimelineOutlinedIcon from "@mui/icons-material/TimelineOutlined";
 import MenuOutlinedIcon from "@mui/icons-material/MenuOutlined";
 import MapOutlinedIcon from "@mui/icons-material/MapOutlined";
 import { useTheme } from "@emotion/react";
+import myAvatar from '../../assets/myAvatar.png'
 
 const Item = ({ title, to, icon, selected, setSelected }) => {
   const theme = useTheme();
   const colors = tokens(theme.palette.mode);
+  const location = useLocation();
+  // Checked if the current route matches the "to" prop
+  const isActive = location.pathname === to;
+  // Updated the selected state based on the current route
+  useEffect(() => {
+    if (isActive) {
+      setSelected(title);
+    }
+  }, [isActive]);
   return (
     <MenuItem active={selected === title} style={{ color: colors.grey[100] }}
       onClick={() => setSelected(title)}
@@ -38,7 +48,9 @@ const Sidebar = () => {
   const colors = tokens(theme.palette.mode);
   const [isCollapsed, setisCollapsed] = useState(false);
   const [selected, setSelected] = useState('Dashboard');
-
+  // if (currentRoute) {
+  //   if (currentRoute.indexOf('/') !== -1) setSelected(currentRoute.substring(1))
+  // }
   return (
     <Box
       sx={{
@@ -84,9 +96,9 @@ const Sidebar = () => {
               <Box mb='25px' >
                 <Box display='flex' justifyContent='center' alignItems='center' >
                   <img alt="Profile user"
-                    width='80px'
-                    height="80px"
-                    src={`../../assets/user.png`}
+                    width='100px'
+                    height="110px"
+                    src={myAvatar}
                     style={{ cursor: 'pointer', borderRadius: '50%' }}
                   />
                 </Box>

@@ -1,4 +1,4 @@
-import { Box, Button, Icon, IconButton, Typography, useTheme } from "@mui/material";
+import { Box, IconButton, Typography, useTheme } from "@mui/material";
 import { tokens } from "../../theme";
 import { mockTransactions } from "../../data/mockData";
 import DownloadOutlinedIcon from "@mui/icons-material/DownloadOutlined";
@@ -223,7 +223,7 @@ const Dashboard = () => {
             GeoGraphy Based Traffic
           </Typography>
           <Box height='200px'  >
-            <GeographyChart isDashboard={true} />
+            <GeographyChart />
           </Box>
         </Box>
         {/*  */}
